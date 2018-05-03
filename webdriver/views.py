@@ -147,6 +147,13 @@ def upload(request, page):
 				file_upload_time = function.format_time(function.get_timestamps_13())
 				file_instance = File(file_name=file_name,file_size=file_size,file_path=file_path,file_author=file_author,file_upload_time=file_upload_time)
 				file_instance.save()
+				objects_list = File.objects.all()
+				paginator_instance = Paginator(objects_list, 15)
+				objects_sum = paginator_instance.count
+				range_lenth = paginator_instance.page_range
+				page_object_dict = {}
+				for i in range_lenth:
+					page_object_dict[str(i)] = paginator_instance.page(i).object_list
 				return render(request, 'webdriver/svnSpace.html', context={'upload_status': "%s  upload success!"%file.name,
 			                                                               'objects_list': page_object_dict[page],
 	                                                                       'objects_sum': objects_sum,
