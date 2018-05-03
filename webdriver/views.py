@@ -71,9 +71,9 @@ def createData(request):
 		credit_card_flag = form.cleaned_data['credit_card']
 		bankcard_length = form.cleaned_data['bankcard_length']
 		credit_card_length = form.cleaned_data['credit_card_length']
-		if bankcard_length == '':
+		if bankcard_length == '' or bankcard_length is None:
 			bankcard_length = 19
-		if credit_card_length == '':
+		if credit_card_length == '' or credit_card_length is None:
 			credit_card_length = 13
 		customer_info_list = function.create_customer_info_list(howMany=10, birthday=birthday, bankcard_lenth=bankcard_length, bankcard_name=bankName, credit_card_flag=credit_card_flag, credit_card_length=credit_card_length)
 		return render(request, 'webdriver/createData.html', context={
